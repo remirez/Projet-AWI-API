@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
-const schema = mongoose.Schema({
+const CommentaireSchema = mongoose.Schema({
+    parentId: {
+        type: mongoose.ObjectId,
+        required: true
+    },
     createur: {
         type: mongoose.ObjectId,
         required: true
@@ -13,6 +17,7 @@ const schema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    reactions: Array,
-    commentaires: Array,
-})
+    reactions: Array
+});
+
+export default mongoose.model('Commentaires', CommentaireSchema);
