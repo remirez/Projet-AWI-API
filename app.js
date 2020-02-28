@@ -6,6 +6,7 @@ import dotenv from 'dotenv/config'
 import posts from './routes/posts'
 import commentaires from './routes/commentaires'
 import utilisateurs from './routes/utilisateurs'
+import auth from './routes/auth'
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json())
 app.use('/posts', posts)
 app.use('/commentaires', commentaires)
 app.use('/utilisateurs', utilisateurs)
+app.use('/auth', auth)
 
 //Home
 app.get('/', (req, res) => {
