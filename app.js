@@ -24,6 +24,7 @@ app.use('/auth', auth)
 
 //Home
 app.get('/', (req, res) => {
+    res.send("Test")
 })
 
 mongoose.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }, () => console.log('connected to db'));
