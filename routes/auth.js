@@ -11,9 +11,11 @@ authRoute.get('/:pseudo/:mdp', (req, res) => {
         if(req.params.mdp === data[0].mdp){
             res.status(200)
             res.json(data)
+        } else {
+            res.status(401).send("Mot de passe invalide")
         }
         
-    })
+    }).catch(err => res.status(500).send(err))
 })
 
 export default authRoute
