@@ -10,6 +10,8 @@ import auth from './routes/auth'
 
 const app = express();
 
+var PORT = process.env.PORT || 100;
+
 //Middleware - Util
 app.use(cors())
 app.use(bodyParser.json())
@@ -26,4 +28,4 @@ app.get('/', (req, res) => {
 
 mongoose.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }, () => console.log('connected to db'));
 
-app.listen(100); 
+app.listen(PORT);
