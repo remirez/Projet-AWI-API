@@ -10,7 +10,7 @@ import auth from './routes/auth'
 
 const app = express();
 
-var PORT = process.env.PORT || 100;
+var PORT = process.env.PORT || 3000;
 
 //Middleware - Util
 app.use(cors())
