@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
 
 export const tokenCheck = (req, res, next) => {
-    if (!req.originalUrl.includes("auth")) {
+    if (req.originalUrl.includes("auth") || (req.originalUrl.includes("posts") && req.method === 'GET')) {
+        next();
+    } else {
         let token = req.headers[ 'x-access-token' ] || req.headers[ 'authorization' ];
 
         if (token) {
@@ -25,5 +27,5 @@ export const tokenCheck = (req, res, next) => {
                 message: 'Non autorisé'
             });
         }
-    } else next();
+    }
 }
