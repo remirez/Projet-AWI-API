@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
 
 export const tokenCheck = (req, res, next) => {
-    if (req.originalUrl.includes("auth") || (req.originalUrl.includes("posts") && req.method === 'GET')) {
+    let exclusGET = ["/posts", "/commentaires"]
+
+    if (req.originalUrl.includes("auth") || (req.method === 'GET' && exclusGET.map(u => req.originalUrl.includes(u)).includes(true))) {
         next();
     } else {
         let token = req.headers[ 'x-access-token' ] || req.headers[ 'authorization' ];
@@ -28,4 +30,16 @@ export const tokenCheck = (req, res, next) => {
             });
         }
     }
+}
+
+export const cipher = text => {
+    let textToChars = text => text.split('').map(c => c.charCodeAt(0))
+    let byteHex = n => ("0" + Number(n).toString(16)).substr(-2)
+    let applySaltToChar = code => textToChars(process.env.SECRET).reduce((a, b) => a ^ b, code)
+
+    return text.split('')
+        .map(textToChars)
+        .map(applySaltToChar)
+        .map(byteHex)
+        .join('')
 }

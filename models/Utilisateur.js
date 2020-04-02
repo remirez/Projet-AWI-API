@@ -12,7 +12,23 @@ const UtilisateurSchema = mongoose.Schema({
     email: {
         type: String,
         required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    photo: {
+        type: String,
+        required: true
     }
+}, { toObject: { virtuals: true }, toJSON: { virtuals: true } });
+
+UtilisateurSchema.virtual('numSignaler', {
+    ref: 'Posts',
+    localField: '_id', 
+    foreignField: 'createur', 
+    match: { $nor: [ { signaler: { $size: 0 } } ] },
+    count: true
 });
 
 export default mongoose.model('Utilisateurs', UtilisateurSchema);
